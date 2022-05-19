@@ -1,8 +1,9 @@
 # Embedded Systems Clock Emulator  
 
-#### This folder contains 6 files:  
+#### This folder contains 7 files:  
 - clock_main.c
 - clock_update.c
+- clock_update_asm.s
 - clock_sim.c
 - clock.h
 - Makefile
@@ -28,6 +29,9 @@ This file contains 3 functions:
   
 - **clock_update** calls set_tod_from_secs with the global TIME_OF_DAY_SEC variable and uses the struct it creates to call the set_display_from_tod function. Checks both functions for errors.
 
+**clock_update_asm.s:**
+This file is not used during runtime, but contains the same functions as clock_update.c in x86-64 Assembly Language. It does the same thing as clock_update, but is optimzed to use as little memory and proceesing as needed to mimic coding on an embedded system.
+
 **clock_sim.c:**  
 This file uses the global CLOCK_DISPLAY_PORT to create a printable clock display. It unpacks the masks and uses the correpsonding positions to print a string of the bits used in the masking and the clock display.
 
@@ -42,7 +46,7 @@ $  make clock_main
 
 ## Examples and Error Catches  
 
-The TINE_OF_DAY_SECS has a range between 0 and 86400, or the total number of seconds in a day. Examples of inputs inside and outside of that range are shown below.
+The TIME_OF_DAY_SECS has a range between 0 and 86400, or the total number of seconds in a day. Examples of inputs inside and outside of that range are shown below.
 ```bash
 $  ./clock_main 0
 ```
