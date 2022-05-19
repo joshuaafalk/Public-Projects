@@ -5,11 +5,11 @@ import datetime
 def fetch_new_email():
     date = (datetime.date.today() - datetime.timedelta(1)).strftime("%d-%b-%Y") #get mail from last day
     mail = IMAP4_SSL('imap.gmail.com')                  #connecting to mail service
-    mail.login('USERNAME', 'PASSWORD')  #logging in and setting up email access
+    mail.login('USERNAME', 'PASSWORD')                  #logging in and setting up email access
     mail.select("inbox")                                #selecting inbox
 
-    result, data = mail.uid('search', None, '(SENTSINCE {date}) HEADER Subject "P.Budget"'.format(date=date)) #searching for emails with set subject
-    ids = data[0]
+    result, data = mail.uid('search', None, '(SENTSINCE {date}) HEADER Subject "Budget.Program"'.format(date=date)) #searching for emails with set subject
+    ids = data[0]                                       #unique idea list is first item in data
     id_list = ids.split()                               #creates list of uids for all emails matching search criteria
     return id_list, mail
 
@@ -19,7 +19,7 @@ def get_new_emails():
     message_list = []
 
     i = 0
-    while i < len(message_list):
+    while i < len(mail_list):
         latest_email_id = mail_list[i]                       #uid of most recent email with correct subject
         result, data = mail.uid('fetch', latest_email_id,'(RFC822)') #fetching text of email using uid
         raw = data[0][1]                                    #raw message data
