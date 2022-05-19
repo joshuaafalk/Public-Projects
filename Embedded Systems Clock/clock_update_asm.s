@@ -76,9 +76,9 @@ set_display_from_tod:
         #catches bad input values
         movq	%rdi, %r8
         cmpw	$0, %r8w		#comparing hours portion to 0, di is first 16 bits
-        jl	.BADVAL		#if less than zero goes to failure
+        jl	.BADVAL			#if less than zero goes to failure
         cmpw	$12, %r8w		#compare hours to 12
-        jg	.BADVAL		#fail if hours >12
+        jg	.BADVAL			#fail if hours >12
         shrq	$16, %r8
         cmpw	$0, %r8w		#16 into 32 bit edi register compares next 16 bits
         jl	.BADVAL
@@ -132,7 +132,7 @@ set_display_from_tod:
 	idiv	%ecx			#dividing by 10 to get remainder equal to the hours tens spot, held in edx
 	cmpl	$0, %edx		#checking if 0 for blank mask
 	je	.BLANK			#if it needs a blank mask jumps to blank mask function
-	movq	$1, %r9		#if it is not blank it must be 1
+	movq	$1, %r9			#if it is not blank it must be 1
 	movl	(%r8,%r9,4),%r10d	#r10d becomes mask for number 1
 	shll	$21, %r10d		#shifting bits left by 21
 	orl	%r10d, %r11d		#sets next 2 bytes to be bitmask
@@ -143,9 +143,9 @@ set_display_from_tod:
 	shrq	$48, %rdi
 	cmpb	$1, %dil		#checking for am or pm
 	je	.SETAM			#conditional if ampm equals 1
-	cmpb	$2, %dil	#checks for 2 to set pm
+	cmpb	$2, %dil		#checks for 2 to set pm
 	je	.SETPM
-	jmp	.BADVAL		#neither 1 or 2 so something is wrong
+	jmp	.BADVAL			#neither 1 or 2 so something is wrong
 	
 .SETAM:
 	movl	$1, %edx		#for bitshift
@@ -166,7 +166,7 @@ set_display_from_tod:
 	movq	$10, %r9		#blank mask is at pos 10 in mask array
 	movl	(%r8,%r9,4),%r10d	#setting r10d to blank mask
 	shll	$21, %r10d		#shifting bits left by 21
-	orl	%r10d, %r11d	#blank bit mask for next 8 bits
+	orl	%r10d, %r11d		#blank bit mask for next 8 bits
 	jmp	.CHECKAMPM
         
 .BADVAL:
