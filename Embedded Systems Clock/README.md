@@ -108,7 +108,7 @@ TIME_OF_DAY_SEC set to: 5678910
 Time 5678910 exceeds max 86400
 ```
 
-And finally, to show the AM/PM toggle works:  
+And finally, to demonstrate the AM/PM toggle:  
 
 ```bash
 $  ./clock_main 43240
