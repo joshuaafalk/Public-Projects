@@ -33,7 +33,19 @@ Once the simulation is running, you can access the visualization and scheduling 
 # What The Simulation Does
 The simulation maps the University of Minnesota campus and enables rides for robots to be scheduled on a webpage and fulfilled in the simulation by a drone. The simulation allows for setting the pickup and drop-off locations for the robot rider, as well as the pathing strategy for the driver. The system is designed to use different pathfinding strategies such as A*, depth-first search, and Dijkstra.  Additionally, there are three types of drones in the simulation, standard, fancy, and extravagant. When a ride is created, the user must also select which type of drone they want to pick up the robot. The system enables the drone of specified type to pick up the robot and transport it to its final destination. Upon arrival, both the drone and robot celebrate with a dance dependent on the routing strategy for that trip. The simulation is also capable of tracking a variety of data about each entity. This data can be output to a CSV file at any point, allowing for analysis.
 
-# New Features
+# Features
+
+## General System
+
+The UML diagram below provides an overview of the simulation's functioning. The simulation model interacts with entities within the simulation and the transit service interface. The transit service receives data from the scheduling webpage and sends information to the 3D visualization webpage. The system utilizes a Model View Controller design to ensure real-time updates in the JavaScript simulation, while the backend efficiently operates in C++ using a WebSocket for communication.
+
+
+<p align="center">
+  <img src="images/GeneralUML.png" alt="UML Diagram" width="1200">
+  <br>
+  <em>UML for Transit System</em>
+</p>
+
 
 ## Entity Types
 
