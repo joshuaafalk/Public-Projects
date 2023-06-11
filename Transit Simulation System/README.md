@@ -3,6 +3,8 @@ The Transit Simulation System is a software development project that utilizes C+
 
 # Docker Image
 
+https://hub.docker.com/r/jfalk314/transitsim
+
 To run the drone simulation after downloading the Docker image:
 
 `docker run --rm -it -p 8081:8081 <image_name>`
