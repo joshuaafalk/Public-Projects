@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% from 'resume_post.html' import resume_post %}
+{% from 'comment_card.html' import comment_card %}
+{% if user %}
+{% set user_email = user['userinfo']['email'] %}
+{% else %}
+{% set user_email = none %}
+{% endif %}
+{% block title %}Resume{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="resume-page-title">
+    <h1> {{resume[1]}} </h1>
+</div>
+<div class="resume-page-container">
+    <div class="resume-page-left">
+        <div class="resume">
+            {{ resume_post(resume[3], "165%", "110%") }}
+            <div class="trash">
+                {% if user_id == user_info[0] %}
+                    <a href="/deleteResume?id={{ resume[0] }}" style="background-color: red; float: left; margin-left: 15px; margin-top: 18px; margin-bottom: 50px; padding: 10px; border-radius: 50%; width: 45px; height: 45px;">
+                        <i class="fa fa-trash" aria-hidden="true" style="margin-left: 2px; font-size: 35px; color: white; margin-left: 7px; margin-top: 6px;"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="resume-page-right">
+        <div class="resume-info" onclick="location.href='/profile?id={{ user_info[0] }}';" style="cursor: pointer;">
+            <img class="profile-image" src="{{user_info[2]}}">
+            <div><h3>{{user_info[3]}} {{user_info[4]}}</h3></div>
+            <div class="resume-page-tags">
+                <span class="tag" style="background-color: {{tag_colors[0][tags[0]]}};">{{ tags[0] }}</span>
+                <span class="tag" style="background-color: {{tag_colors[1][tags[1]]}};">{{ tags[1] }}</span>
+                <span class="tag" style="background-color: {{tag_colors[2][tags[2]]}};">{{ tags[2] }}</span>
+            </div>
+            {% if resume[2] != '' %}
+                <div class="resume-description-text">
+                    <b>Description: </b>{{ resume[2] }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="comments-container">
+            {% if gpt == none %}
+            <h2>Comments</h2>
+                <div class="comments">
+                {% for comment in comments %}
+                    {{comment_card(comment, user_email)}}
+                {% endfor %}
+                </div>
+                <form class="comment-textarea" action="/addComment" id="commentSubmit" method="POST" style="display: flex; justify-content: center; flex-direction: column;">
+                        <input type="hidden" name="user_id" value='{{ user_id }}'>
+                        <input type="hidden" name="resume_id" value='{{ resume[0] }}'>
+                        <textarea name="comment" id="addCommentText" placeholder="Comment" class="comment-textarea"></textarea>
+                        <button type="submit" class="pure-button button-secondary" style="background-color: #49111C;; margin: 0 auto; display: block; margin-bottom: 10px;">Submit</button>
+                </form>
+                {% if user_id == user_info[0] %}
+                    <a href="/reviewResume?id={{ resume[0] }}" class="float">
+                        <img src="chatgpt.png" height="100%" width="auto">
+                    </a>
+                {% endif %}
+            {% else %}
+            <h2>AI Review</h2>
+                <div class="comments" style="white-space: pre-line">{{gptResponse}}</div>
+                {% if user_id == user_info[0] %}
+                    <a href="/resume?id={{ resume[0] }}" class="float" style="background-color: black">
+                        <i class="fa fa-commenting-o" aria-hidden="true" style="margin-top: 9px; margin-left: 2px; font-size: 40px; color: white"></i>
+                    </a>
+                {% endif %}
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

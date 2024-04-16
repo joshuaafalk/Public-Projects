@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/5deedfeb59.js" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="styles.css">
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!--- top menu bar for whole site -->
+    <div class="header">
+        <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+            <div>
+                <a class="pure-menu-heading" href="{{ url_for('home') }}">Review.me</a>
+                <form action="/search_results?usernameFilter=true&titleFilter=true&descriptionFilter=true&tagFilter=true" class="pure-menu-item">
+                    <input type="text" placeholder="Search..." name="search" class="search-box">
+                    <button type="submit" id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+            </div>
+
+            <ul class="pure-menu-list">
+                {% if user %}
+                <li class="pure-menu-item"><a href="{{ url_for('profile') }}" class="pure-menu-link">Profile</a></li>
+                <li class="pure-menu-item"><a href="{{ url_for('create') }}" class="pure-menu-link">Create</a></li>
+                <li class="pure-menu-item"><a href="{{ url_for('logout') }}" class="pure-menu-link">Logout</a></li>
+                {% else %}
+                <li class="pure-menu-item"><a href="{{ url_for('login') }}" class="pure-menu-link nav-text">Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <br>
+
+    <!--- main content of the page -->
+    <div class="main-content">
+
+    {% block content %}{% endblock %}
+
+    </div>
+</body>
+</html>

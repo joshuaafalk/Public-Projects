@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}First Time Login{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+
+<h2>Welcome! Please fill out a few details to complete your account</h2>
+
+<div>
+    <!-- <image src="data:image/png;base64," + {{ profile_pic }}></image> -->
+    <form class="create-form" action="{{ url_for('first_login') }}" method="post" enctype=multipart/form-data>
+        <img id="pfp_preview" src="{{ profile_pic }}" height="100vh" width="auto"/><br>
+        <input type="file" id="pfp" name="pfp" accept="image/*" onchange="loadFile(event)"> <br>
+        <input type="text" id="username" name="username" placeholder="Username"><br>
+        <input type="text" id="email" name="email" placeholder="Email" value="{{ email }}"><br>
+        <input type="text" id="first_name" name="first_name" placeholder="First Name" value="{{ first_name }}"><br>
+        <input type="text" id="last_name" name="last_name" placeholder="Last Name" value="{{ last_name }}"><br>
+        <input type="text" id="occupation" name="occupation" placeholder="Occupation"><br>
+        <div class="button-container">
+            <button type="submit" class="pure-button pure-button-primary" style="background-color:#49111C;">Create Account</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

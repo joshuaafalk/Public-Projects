@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+psycopg2-binary = "*"
+authlib = "*"
+requests = "*"
+profanity = "*"
+flask-wtf = "*"
+pillow = "*"
+fitz = "*"
+pymupdf = "*"
+gunicorn = "*"
+convertapi = "*"
+python-docx = "*"
+openai = "*"
+
+[requires]
+python_version = "3.8"

@@ -1,0 +1,29 @@
+{% macro comment_card(comment, user_email) -%}
+    <div class="comment-card">
+        <div class="comment-header">
+            <div class="comment-profile">
+                {% if comment[2] %}
+                    <img class="comment-image" src="{{comment[14]}}" height="20", width=auto/>
+                    <div>{{ comment[8] }}</div>
+                {% else %}
+                    <img src="profile.webp" height="20", width=auto/>
+                    <div>Anonymous</div>
+                {% endif %}
+            </div>
+            <div class="comment-info">
+                {% if comment[4] == True %}
+                <div class="comment-edited">*edited*</div>
+                {% endif %}
+                <div class="comment-date">{{comment[5].date()}}</div>
+            </div>
+        </div>
+        <div class="comment">{{comment[3]}}</div>
+        
+        {% if comment[9] == user_email %}
+            <div class="comment-footer">
+                <a href="javascript:;" onclick="editComment('{{comment[3]}}', '{{comment[0]}}');"><img src="edit.png" height="150%", width="150%"/></a>
+                <a href="/deleteComment?comment_id={{comment[0]}}&resume_id={{comment[1]}}"><img src="delete.png" height="90%", width="90%"/></a>
+            </div>
+        {% endif %}
+    </div>
+{%- endmacro %}

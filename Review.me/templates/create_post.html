@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Post{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+  <div class="create-form">  
+    <form class="pure-form pure-form-aligned" action="{{ url_for('create') }}" method="post" enctype=multipart/form-data>
+      <fieldset>
+        <div class="file-upload-container">
+          <label for="file-upload" class="pure-button">
+             Drag and drop PDF or click to browse
+          </label>
+          <input id="file-upload" type="file" name="file-upload" accept="application/pdf" style="display:none;" required>
+        </div>
+  
+        <div class="pure-control-group">
+          <input type="text" id="resume-title" name="resume-title" placeholder="Resume Title" minlength="3" required>
+        </div>
+  
+        <div class="pure-control-group" style="margin-bottom: 10px;">
+            <select name="occ-tag" required>
+              <option value="">Occupation...</option>
+              {% for tag in all_tags[0] %}
+                <option value="{{ tag }}">{{ tag }}</option>
+              {% endfor %}
+            </select>
+            <select name="ind-tag" required>
+              <option value="">Industry...</option>
+              {% for tag in all_tags[1] %}
+                <option value="{{ tag }}">{{ tag }}</option>
+              {% endfor %}
+            </select>
+            <select name="exp-tag" required>
+              <option value="">Experience...</option>
+              {% for tag in all_tags[2] %}
+                <option value="{{ tag }}">{{ tag }}</option>
+              {% endfor %}
+            </select>
+        </div>
+    
+        
+        <div class="pure-control-group">
+          <textarea id="description" name="description" placeholder="Description" rows="4"></textarea>
+        </div>
+      </fieldset>
+
+        <div class="button-container">
+            <button type="submit" class="pure-button pure-button-primary" style="background-color: #49111C;">Upload</button>
+        </div>
+
+    </form>
+  
+  </div>
+  <script src="{{ url_for('static', filename='create_post.js') }}"></script>
+
+{% endblock %}

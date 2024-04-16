@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% from 'user_comment_card.html' import user_comment_card %}
+{% from 'resume_post.html' import resume_post, resume_image_post %}
+
+{% block title %}Profile{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-info">
+            <img class="profile-image" src="{{ profile_pic }}" alt="Profile picture">
+            <h3>{{ user[5] }} {{ user[6] }}</h3>
+            <p>{{ user[3] }}</p>
+            <p>{{ user[4] }}</p>
+            {% if user_id == user[0]  %}
+                <a href="/logout" class="logout-button pure-button pure-button-primary" style="background-color: #49111C;">Log Out</a>
+            {% endif %}
+        </div>
+
+        <div class="profile-resume">
+            {% if not resume %}
+                <form action="{{ url_for('create') }}" method="get">
+                    <button type="submit" class="pure-button pure-button-primary" style="background-color: #49111C;">Create Resume</button>
+                </form>
+            {% else %}
+            <a href="/resume?id={{ resume[6] }}" class="resume-container">
+                {{ resume_image_post(resume[0]) }}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="recent-comments">
+        <h2>Recent Comments</h2>
+        <!-- Insert comments here -->
+        {% for comment in user_comments %}
+        <div class="profile-comment {% if loop.index >= 3 %}hidden{% endif %}">
+            {{ user_comment_card(comment[1], "/resume?id=" + comment[0]|string) }}
+        </div>
+        {% endfor %}
+        <div class="more-comments-container">
+            <a href="#" id="view-all-comments" class="logout-button pure-button pure-button-primary" style="background-color: #49111C;">View All Comments</a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    var viewAllCommentsBtn = document.getElementById('view-all-comments');
+    viewAllCommentsBtn.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent the default anchor action
+        var hiddenComments = document.querySelectorAll('.profile-comment.hidden');
+        hiddenComments.forEach(function(comment) {
+            comment.classList.remove('hidden');
+        });
+        // Hide the view all comments button after it's clicked
+        viewAllCommentsBtn.style.display = 'none';
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% macro user_comment_card(comment, resume_link) -%}
+        <p>{{ comment }}</p>
+        <div class="profile-comment-buttons">
+            <a href={{ resume_link }} class="pure-button">View Post</a>
+        </div>
+{%- endmacro %}

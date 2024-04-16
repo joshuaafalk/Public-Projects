@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% from 'resume_post.html' import resume_post, resume_image_post %}
+
+{% block title %}Home{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="resume-section">
+    <h1>Top Resume Posts of the Day</h1>
+    <br>
+    <div class="scroll-container">
+        {% for resume in resumes_by_comments %}
+        <a href="/resume?id={{ resume[6] }}" class="pure-menu-link resume-card">
+                <div class="resume-icon"> <b>{{ resume[1] }} </b></div>
+                
+                <div class="image-container"> {{ resume_image_post(resume[0]) }}</div>
+                <div class="resume-description">
+                    <span class="tag" style="background-color: {{ colors[0][resume[3]] }};"> {{ resume[3] }}</span>
+                    <span class="tag" style="background-color: {{ colors[1][resume[4]] }};"> {{ resume[4] }}</span>
+                    <span class="tag" style="background-color: {{ colors[2][resume[5]] }};"> {{ resume[5] }}</span>
+                </div>
+        </a>
+        {% endfor %}
+    </div>
+
+
+</div>
+
+<div class="resume-section">
+    <h1>Recently Posted Resumes</h1>
+    <br>
+    <div class="scroll-container">
+        {% for resume in resumes %}
+        <a href="/resume?id={{ resume[6] }}" class="pure-menu-link resume-card">
+            <div class="resume-icon"> <b>{{ resume[1] }} </b></div>
+            
+            <div class="image-container"> {{ resume_image_post(resume[0]) }}</div>
+
+            <div class="resume-description">
+                <span class="tag" style="background-color: {{ colors[0][resume[3]] }};"> {{ resume[3] }}</span>
+                <span class="tag" style="background-color: {{ colors[1][resume[4]] }};"> {{ resume[4] }}</span>
+                <span class="tag" style="background-color: {{ colors[2][resume[5]] }};"> {{ resume[5] }}</span>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

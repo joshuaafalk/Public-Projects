@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% from 'resume_post.html' import resume_post, resume_image_post %}
+{% from 'search_card.html' import search_card %}
+{% block title %}Search Results{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="results-container">
+    <div class="results-heading">
+        {% if search == None %}
+            <h2>Results for &quot; &quot;</h2>
+        {% else %}
+            <h2>Results for &quot;{{search}}&quot;</h2>
+        {% endif %}
+        <div id="searchPhrase" hidden>{{search}}</div>
+    </div>
+
+    <div class="search-layout">
+        <div class="filters-menu">
+            <h3>Filter By:</h3>
+
+            {% if filters['usernameFilter'] == "true" or filters['usernameFilter'] == None %}
+                <input type="checkbox" id="usernameFilter" name="usernameFilter" value="usernameFilter" onclick="toggleFilters()" checked>
+                <label for="usernameFilter"> <b>Usernames</b></label><br><br>
+            {% else %}
+                <input type="checkbox" id="usernameFilter" name="usernameFilter" value="usernameFilter" onclick="toggleFilters()">
+                <label for="usernameFilter"> <b>Usernames</b></label><br><br>
+            {% endif %}
+
+            {% if filters['titleFilter'] == "true" or filters['titleFilter'] == None %}
+                <input type="checkbox" id="titleFilter" name="titleFilter" value="titleFilter" onclick="toggleFilters()" checked>
+                <label for="titleFilter"> <b>Titles</b></label><br><br>
+            {% else %}
+                <input type="checkbox" id="titleFilter" name="titleFilter" value="titleFilter" onclick="toggleFilters()">
+                <label for="titleFilter"> <b>Titles</b></label><br><br>
+            {% endif %}
+
+            {% if filters['tagFilter'] == "true" or filters['tagFilter'] == None %}
+                <input type="checkbox" id="tagFilter" name="tagFilter" value="tagFilter" onclick="toggleFilters()" checked>
+                <label for="tagFilter"> <b>Tags</b></label><br><br>
+            {% else %}
+                <input type="checkbox" id="tagFilter" name="tagFilter" value="tagFilter" onclick="toggleFilters()">
+                <label for="tagFilter"> <b>Tags</b></label><br><br>
+            {% endif %}
+        </div>
+        <div class="query-results">
+            {% for resume in resumes %}
+                {{search_card(resume, tag_colors, resume_image_post(resume[1]))}}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

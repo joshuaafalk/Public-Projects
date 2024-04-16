@@ -1,0 +1,13 @@
+{% macro resume_post(resume, width=auto, height=auto) -%}
+        <object data= 
+                "data:application/pdf;base64, {{resume}}" 
+                width={{width}}
+                height={{height}}> 
+        </object>
+{%- endmacro %}
+
+{% macro resume_image_post(resume) -%}
+        <img src="data:image/jpeg;base64,{{ resume }}" 
+        alt="Resume Preview" 
+        class="resume-image">
+{%- endmacro %}
